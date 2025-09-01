@@ -194,3 +194,112 @@ function prevImage() {
 </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إعلان متحرك مستمر</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+    }
+
+    /* الوقت والتاريخ ثابت */
+    .datetime-container {
+        position: fixed;
+        bottom: 50px;
+        width: 100%;
+        background-color: #2196F3;
+        color: #fff;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 18px;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    /* صندوق الإعلان */
+    .marquee-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to right, #ffeb3b, #ffc107);
+        overflow: hidden;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        white-space: nowrap;
+        font-size: 18px;
+        color: #000;
+        position: relative;
+        right: -100%; /* البداية خارج الشاشة */
+    }
+</style>
+</head>
+<body>
+
+<!-- التاريخ والوقت ثابت -->
+<div class="datetime-container" id="datetime"></div>
+
+<!-- الإعلان المتحرك -->
+<div class="marquee-container">
+    <span class="marquee-text" id="marquee-text">
+        مرحباً بكم في منصة التميز للخدمات التعليمية | 
+        الاختبارات 📚 | 
+        البحوث 📝 | 
+        العروض 🎬 | 
+        المشاريع 🏗️ | 
+        الأعذار الطبية 🏥
+    </span>
+</div>
+
+<script>
+const datetimeEl = document.getElementById('datetime');
+const marqueeText = document.getElementById('marquee-text');
+const marqueeContainer = document.querySelector('.marquee-container');
+
+// تحديث الوقت والتاريخ كل ثانية
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = now.toLocaleDateString('ar-EG', options);
+    const time = now.toLocaleTimeString('ar-EG', {hour12:false});
+    datetimeEl.textContent = ` ${date} | ${time}`;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// تحريك الإعلان بشكل مستمر
+function animateMarquee() {
+    const containerWidth = marqueeContainer.offsetWidth;
+    const textWidth = marqueeText.offsetWidth;
+    let pos = containerWidth; // البداية خارج الشاشة من اليمين
+    const speed = 2; // عدد البيكسلات لكل إطار (يمكن تغييره لتسريع/تبطيء)
+
+    function step() {
+        pos -= speed;
+        if(pos < -textWidth) {
+            pos = containerWidth; // عند الوصول للنهاية أعد للنقطة البداية
+        }
+        marqueeText.style.right = pos + 'px';
+        requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+}
+
+// بدء التحريك عند تحميل الصفحة
+window.onload = animateMarquee;
+</script>
+
+</body>
+</html>
