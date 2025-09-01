@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة التميز</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        direction: rtl;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+    header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+    section {
+        padding: 15px;
+        max-width: 1000px;
+        margin: auto;
+    }
+    h2 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .icons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .icon {
+        background-color: white;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        text-align: center;
+        cursor: pointer;
+        width: 100px;
+    }
+    .icon img {
+        max-width: 60px;
+        height: auto;
+        margin-bottom: 8px;
+    }
+    .icon h3 {
+        font-size: 14px;
+        margin: 0;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.9);
+        text-align: center;
+    }
+    .modal-content {
+        margin: auto;
+        max-width: 80%;
+        max-height: 80%;
+        border-radius: 8px;
+    }
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .modal-close:hover { color: #bbb; }
+    .nav-arrow {
+        position: absolute;
+        top: 50%;
+        font-size: 50px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+        padding: 0 15px;
+        transform: translateY(-50%);
+    }
+    .nav-arrow:hover { color: #bbb; }
+    .left-arrow { left: 0; }
+    .right-arrow { right: 0; }
+    .contact {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .whatsapp-button, .email-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #25D366;
+        color: white;
+        font-weight: bold;
+        border-radius: 40px;
+        text-decoration: none;
+        transition: background 0.3s;
+        margin: 8px;
+    }
+    .whatsapp-button:hover, .email-button:hover { background-color: #1ebe5d; }
+</style>
+</head>
+<body>
+<header>
+    <h1>مرحبا بكم في منصة التميز</h1>
+</header>
+
+<section>
+<h2>خدماتنا</h2>
+<div class="icons">
+    <div class="icon" onclick="openModal('tests')">
+        <img src="tests1.jpg" alt="">
+        <h3>الاختبارات</h3>
+    </div>
+    <div class="icon" onclick="openModal('research')">
+        <img src="research1.jpg" alt="">
+        <h3>البحوث</h3>
+    </div>
+    <div class="icon" onclick="openModal('presentations')">
+        <img src="presentations1.jpg" alt="">
+        <h3>العروض</h3>
+    </div>
+    <div class="icon" onclick="openModal('projects')">
+        <img src="projects1.jpg" alt="">
+        <h3>المشاريع</h3>
+    </div>
+    <div class="icon" onclick="openModal('health')">
+        <img src="health1.jpg" alt="">
+        <h3>الإعذار الطبية</h3>
+    </div>
+</div>
+
+<div class="contact">
+    <h2>تواصل معي</h2>
+    <a class="whatsapp-button" href="https://wa.me/967775955712" target="_blank">واتساب</a>
+    <a class="email-button" href="mailto:excellence.platform20@gmail.com" target="_blank">البريد الإلكتروني</a>
+</div>
+</section>
+
+<div id="imageModal" class="modal">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <span class="nav-arrow left-arrow" onclick="prevImage()">&#10094;</span>
+    <img class="modal-content" id="modalImage">
+    <span class="nav-arrow right-arrow" onclick="nextImage()">&#10095;</span>
+</div>
+
+<script>
+const images = {
+    tests: ["tests1.jpg","tests2.jpg","tests3.jpg","tests4.jpg","tests5.jpg"],
+    research: ["research1.jpg","research2.jpg","research3.jpg","research4.jpg","research5.jpg"],
+    presentations: ["presentations1.jpg","presentations2.jpg","presentations3.jpg","presentations4.jpg","presentations5.jpg"],
+    projects: ["projects1.jpg","projects2.jpg","projects3.jpg","projects4.jpg","projects5.jpg"],
+    health: ["health1.jpg","health2.jpg","health3.jpg","health4.jpg","health5.jpg"]
+};
+
+let currentIndex = 0;
+let currentCategory = '';
+
+function openModal(category) {
+    currentCategory = category;
+    currentIndex = 0;
+    document.getElementById("modalImage").src = images[category][currentIndex];
+    document.getElementById("imageModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+function nextImage() {
+    currentIndex++;
+    if(currentIndex >= images[currentCategory].length) currentIndex = 0;
+    document.getElementById("modalImage").src = images[currentCategory][currentIndex];
+}
+
+function prevImage() {
+    currentIndex--;
+    if(currentIndex < 0) currentIndex = images[currentCategory].length - 1;
+    document.getElementById("modalImage").src = images[currentCategory][currentIndex];
+}
+</script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إعلان متحرك مستمر</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        direction: rtl;
+    }
+
+    /* الوقت والتاريخ ثابت */
+    .datetime-container {
+        position: fixed;
+        bottom: 50px;
+        width: 100%;
+        background-color: #2196F3;
+        color: #fff;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 18px;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    /* صندوق الإعلان */
+    .marquee-container {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(to right, #ffeb3b, #ffc107);
+        overflow: hidden;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        white-space: nowrap;
+        font-size: 18px;
+        color: #000;
+        position: relative;
+        right: -100%; /* البداية خارج الشاشة */
+    }
+</style>
+</head>
+<body>
+
+<!-- التاريخ والوقت ثابت -->
+<div class="datetime-container" id="datetime"></div>
+
+<!-- الإعلان المتحرك -->
+<div class="marquee-container">
+    <span class="marquee-text" id="marquee-text">
+        مرحباً بكم في منصة التميز للخدمات التعليمية | 
+        الاختبارات 📚 | 
+        البحوث 📝 | 
+        العروض 🎬 | 
+        المشاريع 🏗️ | 
+        الأعذار الطبية 🏥
+    </span>
+</div>
+
+<script>
+const datetimeEl = document.getElementById('datetime');
+const marqueeText = document.getElementById('marquee-text');
+const marqueeContainer = document.querySelector('.marquee-container');
+
+// تحديث الوقت والتاريخ كل ثانية
+function updateDateTime() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const date = now.toLocaleDateString('ar-EG', options);
+    const time = now.toLocaleTimeString('ar-EG', {hour12:false});
+    datetimeEl.textContent = ` ${date} | ${time}`;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+// تحريك الإعلان بشكل مستمر
+function animateMarquee() {
+    const containerWidth = marqueeContainer.offsetWidth;
+    const textWidth = marqueeText.offsetWidth;
+    let pos = containerWidth; // البداية خارج الشاشة من اليمين
+    const speed = 2; // عدد البيكسلات لكل إطار (يمكن تغييره لتسريع/تبطيء)
+
+    function step() {
+        pos -= speed;
+        if(pos < -textWidth) {
+            pos = containerWidth; // عند الوصول للنهاية أعد للنقطة البداية
+        }
+        marqueeText.style.right = pos + 'px';
+        requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+}
+
+// بدء التحريك عند تحميل الصفحة
+window.onload = animateMarquee;
+</script>
+
+</body>
+</html>
